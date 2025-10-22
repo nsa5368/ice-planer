@@ -1,0 +1,495 @@
+<!doctype html> 
+
+<html lang="en"> 
+
+<head> 
+
+<meta charset="utf-8" /> 
+
+<base href="./" /> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+
+<title>Ice Planner — Team Budget Calculator</title> 
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"> 
+
+ 
+
+<style> 
+
+:root { 
+
+
+--ddd-font-navigation: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; 
+
+--ddd-font-size-xs: 12px; 
+
+--ddd-font-size-s: 14px; 
+
+--ddd-font-size-m: 16px; 
+
+--ddd-font-size-l: 20px; 
+
+--ddd-font-size-xl: 28px; 
+
+ 
+
+/* Theme */ 
+
+--ddd-theme-primary: #4338ca; 
+
+--ddd-theme-primary-dark: #312e81; 
+
+--ddd-theme-primary-light: #e0e7ff; 
+
+--ddd-theme-accent: #14b8a6; 
+
+--ddd-theme-default-white: #ffffff; 
+
+--ddd-theme-default-coalyGray: #0f172a; 
+
+--ddd-theme-default-limestoneGray: #1e293b; 
+
+--ddd-theme-default-limestoneLight: #94a3b8; 
+
+--ddd-theme-default-limestoneLightAlt: #cbd5e1; 
+
+color-scheme: light dark; 
+
+} 
+
+ 
+
+html, body { 
+
+margin: 0; 
+
+padding: 0; 
+
+font-family: var(--ddd-font-navigation); 
+
+background: 
+
+radial-gradient(900px 500px at -10% -10%, #e0e7ff 0%, transparent 60%), 
+
+radial-gradient(900px 500px at 110% 10%, #ccfbf1 0%, transparent 60%), 
+
+#f8fafc; 
+
+color: var(--ddd-theme-primary-dark); 
+
+min-height: 100vh; 
+
+} 
+
+ 
+
+/* center the app */ 
+
+main { 
+
+max-width: 1200px; 
+
+margin: 40px auto; 
+
+padding: 0 20px 100px; 
+
+} 
+
+ 
+
+h1 { 
+
+font-size: 2rem; 
+
+font-weight: 800; 
+
+text-align: center; 
+
+margin-bottom: 20px; 
+
+letter-spacing: -0.02em; 
+
+color: var(--ddd-theme-primary); 
+
+} 
+
+ 
+
+/* Logo styling */ 
+
+.logo-container { 
+
+text-align: center; 
+
+margin-bottom: 32px; 
+
+} 
+
+ 
+
+.app-logo { 
+
+display: inline-block; 
+
+width: 120px; 
+
+height: 120px; 
+
+border-radius: 50%; 
+
+border: 4px solid var(--ddd-theme-primary); 
+
+object-fit: cover; 
+
+transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
+
+box-shadow: 0 4px 16px rgba(67, 56, 202, 0.2); 
+
+cursor: pointer; 
+
+} 
+
+ 
+
+.app-logo:hover { 
+
+transform: scale(1.1); 
+
+box-shadow: 0 8px 28px rgba(67, 56, 202, 0.4); 
+
+border-color: var(--ddd-theme-accent); 
+
+} 
+
+ 
+
+ice-planner { 
+
+display: block; 
+
+border-radius: 16px; 
+
+overflow: clip; 
+
+box-shadow: 0 18px 50px rgba(20, 184, 166, 0.12); 
+
+background: var(--ddd-theme-default-white); 
+
+} 
+
+
+@media (prefers-color-scheme: dark) { 
+
+html, body { 
+
+background: 
+
+radial-gradient(900px 500px at -10% -10%, rgba(49, 46, 129, 0.25) 0%, transparent 60%), 
+
+radial-gradient(900px 500px at 110% 10%, rgba(20, 184, 166, 0.18) 0%, transparent 60%), 
+
+#0b1220; 
+
+color: #e5e7eb; 
+
+} 
+
+ 
+
+h1 { 
+
+color: #e5e7eb; 
+
+} 
+
+ 
+
+ice-planner { 
+
+background: var(--ddd-theme-default-limestoneGray); 
+
+border: 1px solid rgba(255, 255, 255, 0.1); 
+
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+
+} 
+
+ 
+
+.app-logo { 
+
+border-color: var(--ddd-theme-accent); 
+
+box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3); 
+
+} 
+
+ 
+
+.app-logo:hover { 
+
+box-shadow: 0 8px 28px rgba(20, 184, 166, 0.6); 
+
+} 
+
+} 
+
+ 
+
+/* theme toggle button */ 
+
+#themeToggle { 
+
+display: block; 
+
+margin: 0 auto 30px; 
+
+padding: 10px 20px; 
+
+font-weight: 600; 
+
+background: var(--ddd-theme-primary); 
+
+color: white; 
+
+border: none; 
+
+border-radius: 8px; 
+
+cursor: pointer; 
+
+transition: all 0.2s ease; 
+
+} 
+
+ 
+
+#themeToggle:hover { 
+
+background: var(--ddd-theme-accent); 
+
+transform: translateY(-2px); 
+
+} 
+
+:root[data-theme="light"] { 
+
+color-scheme: light; 
+
+} 
+
+ 
+
+:root[data-theme="light"] html, 
+
+:root[data-theme="light"] body { 
+
+background: 
+
+radial-gradient(900px 500px at -10% -10%, #e0e7ff 0%, transparent 60%), 
+
+radial-gradient(900px 500px at 110% 10%, #ccfbf1 0%, transparent 60%), 
+
+#f8fafc; 
+
+color: #0f172a; 
+
+} 
+
+ 
+
+:root[data-theme="light"] h1 { 
+
+color: var(--ddd-theme-primary); 
+
+} 
+
+ 
+
+:root[data-theme="light"] ice-planner { 
+
+background: var(--ddd-theme-default-white); 
+
+border: none; 
+
+box-shadow: 0 18px 50px rgba(20, 184, 166, 0.12); 
+
+} 
+
+ 
+
+:root[data-theme="light"] .app-logo { 
+
+border-color: var(--ddd-theme-primary); 
+
+box-shadow: 0 4px 16px rgba(67, 56, 202, 0.2); 
+
+} 
+
+ 
+
+:root[data-theme="light"] .app-logo:hover { 
+
+box-shadow: 0 8px 28px rgba(67, 56, 202, 0.4); 
+
+} 
+
+ 
+
+:root[data-theme="dark"] { 
+
+color-scheme: dark; 
+
+} 
+
+ 
+
+:root[data-theme="dark"] html, 
+
+:root[data-theme="dark"] body { 
+
+background: 
+
+radial-gradient(900px 500px at -10% -10%, rgba(49, 46, 129, 0.25) 0%, transparent 60%), 
+
+radial-gradient(900px 500px at 110% 10%, rgba(20, 184, 166, 0.18) 0%, transparent 60%), 
+
+#0b1220; 
+
+color: #e5e7eb; 
+
+} 
+
+ 
+
+:root[data-theme="dark"] h1 { 
+
+color: #e5e7eb; 
+
+} 
+
+ 
+
+:root[data-theme="dark"] ice-planner { 
+
+background: var(--ddd-theme-default-limestoneGray); 
+
+border: 1px solid rgba(255, 255, 255, 0.1); 
+
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+
+} 
+
+ 
+
+:root[data-theme="dark"] .app-logo { 
+
+border-color: var(--ddd-theme-accent); 
+
+box-shadow: 0 4px 16px rgba(20, 184, 166, 0.3); 
+
+} 
+
+ 
+
+:root[data-theme="dark"] .app-logo:hover { 
+
+box-shadow: 0 8px 28px rgba(20, 184, 166, 0.6); 
+
+}
+
+</style> 
+
+</head> 
+
+<body> 
+
+<main> 
+
+<h1>Ice Planner — Hockey Team Budget App</h1> 
+
+<div class="logo-container"> 
+
+<img src="./hockey-logo.jpg" alt="Ice Hockey Logo" class="app-logo"> 
+
+</div>
+
+<button id="themeToggle">Theme: Auto</button> 
+
+
+<ice-planner></ice-planner> 
+
+</main> 
+
+ 
+
+<script type="module" src="./ice-planner.js"></script> 
+
+ 
+
+<script type="module"> 
+
+// simple light/dark/auto toggle 
+
+const root = document.documentElement; 
+
+const btn = document.getElementById('themeToggle'); 
+
+const KEY = 'theme-mode'; 
+
+const modes = ['auto', 'dark', 'light']; 
+
+ 
+
+function apply(mode) { 
+
+if (mode === 'auto') root.removeAttribute('data-theme'); 
+
+else root.setAttribute('data-theme', mode); 
+
+localStorage.setItem(KEY, mode); 
+
+btn.textContent = `Theme: ${mode.charAt(0).toUpperCase() + mode.slice(1)}`; 
+
+} 
+
+ 
+
+function nextMode(mode) { 
+
+const i = modes.indexOf(mode); 
+
+return modes[(i + 1) % modes.length]; 
+
+} 
+
+ 
+
+let current = localStorage.getItem(KEY) || 'auto'; 
+
+apply(current); 
+
+ 
+
+btn.addEventListener('click', () => { 
+
+current = nextMode(current); 
+
+apply(current); 
+
+}); 
+
+</script> 
+
+</body> 
+
+</html> 
+
+ 
+
+ 
